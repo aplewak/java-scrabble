@@ -1,0 +1,379 @@
+<h1>CSE116 Project Stage 2</h1>
+
+<p><hr><h2>Introduction</h2>
+<blockquote>
+
+<p>In this second stage you will extend the functionality of stage 1 in
+several ways, as outlined below.  You will continue to work with your
+Stage 1 team unless you are told otherwise.
+
+<p>Remember that if anything is unclear, you should ask your customer.
+Your customer can best be reached via Piazza.
+
+</blockquote>
+<p><hr><H2>Objectives</H2>
+<blockquote>
+
+The main concepts covered in this is stage of the course project are:
+
+<li>Designing and building Graphical User Interfaces</li>
+<p>
+In this stage you will be required to design and implement a graphical
+user interface using Swing components.  In order to do this you must
+understand how the Swing components relate to each other and also how
+events and generated and handled in Java.  A common pattern used to
+build a graphical user interface is called Model-View-Controller, or
+MVC.  See the web site resources page for web sites with information
+about the MVC pattern.
+<P>
+
+<li>Searching</li>
+<p>
+Searching is a very important task in computer science.  In this stage
+of the project you will need to search a large dictionary to determine
+whether a word is valid or not.
+<P>
+A discussion of searching will also give us an ideal forum for
+discussing the efficiency of algorithms and how we might compare the
+efficiency of algorithms.
+
+</ul>
+</blockquote>
+<p><hr><h2>Old functionality requirements [10 points] </h2>
+<blockquote>
+Unless overridden by a new requirement, all old (stage 1) requirements
+must be provided in your stage 2 submission.
+</blockquote>
+
+<p><hr><h2>New functionality requirements [36 points]</h2>
+<blockquote>
+
+<i>KnowSys</i> has decided to enhance the game, since initial sales
+were disappointing.  The marketing department has determined that in
+order to sell well the game really must have a Graphical User
+Interface (GUI), check words for validity in a dictionary, along with
+some additional tweaks to the way the game works.  Note that all stage
+1 functionality is expected as well.
+
+<H3>GUI [8 points]</H3>
+<blockquote>
+
+<p>Each player must have their own GUI, displayed in a separate window
+(JFrame).
+
+<p>At a minimum each player's GUI must display the board, that
+player's tiles, as well as the scores for each of the players.  It must
+NOT display the tile rack of any other player.
+
+<p>The GUI must also let the user place words on the board and retract
+words from the board before committing to the placed word.  Placement
+on and removal from the board is done tile by tile, just like in the
+real game.  Tiles place on the current turn must be visually distinct
+from tiles placed on earlier turns.
+
+<p>The GUI must only allow the player to place/retract tiles when it
+is their turn.  When it is not their turn, the controls on the GUI
+must be disabled in some manner (either by having listeners removed
+from the controls, or by having the game ignore communication from any
+player other than the current one.
+
+<p><b>N.B.</b> The main game class is not permitted to actively prompt
+for player names.  The names of the players must be accepted as arguments
+of the main method ("command-line arguments").  Supply these in the run
+configuration in Eclipse.  To start a new game at least two names must be
+supplied, each with a '-p' label.
+</blockquote>
+
+<H3>Multipliers [8 points]</H3>
+<blockquote>
+
+<p>Letter and word multipliers apply to the first placement of a letter or
+word over top of a square (not subsequent words formed using the tile
+over the square).
+
+<p>Each square has a letter multiplier, assigned at random according to these
+probabilities: 2 with probability 10%, 1 with probability 80%, 0 with probability 5% and -1 with probability 5%.
+
+<p>Each square has a word multiplier, assigned at random according to these
+probabilities: 3 with probability 5%, 2 with probability 15%, 1 with probability 75% and 0 with probability 5%.
+
+<p>Scoring must be modified to take the multipliers into account.
+</blockquote>
+
+<H3>Word validation [8 points]</H3>
+<blockquote>
+
+Words are considered well-formed only if they appear in a dictionary.
+The dictionary file must be specified by a relative or absolute path name as a
+command-line argument to the program when it starts.  You may assume
+that the dictionary file contains one valid word per line, and that
+the dictionary file is a plain ASCII text file.  Use a '-d' label for
+the dictionary file.
+
+<p>An example of such a dictionary file can be found in
+<tt>/projects/CSE116/words</tt>.
+</blockquote>
+
+<H3>Save/restore [4 points]</H3>
+<blockquote>
+
+<p>The game must support a save/restore functionality.  Saving the game
+involves suspending the current game, and saving its current state to
+a file on disk.  Restoring a game involves reading a saved game state
+from a file on disk, and restarting the game from that point.
+
+<p>The saved format must be a single string, consisting of the absolute
+path to the dictionary file (even if a relative path was entered), the names
+of the players, in the order of play, with the person whose turn it is next
+listed first, each followed by the tiles in their tile rack and then their
+current score, and then the toString of the board: a '[' for the start of a row, a '#' for a position
+which is not a square on the board, a '_' for an empty square on the board,
+a capital letter for a square on the board with that letter, and a ']' for
+the end of the row.  Each position with an open square also encodes the letter
+and word multipliers for that square after the '_', in that order.  For
+example, a row representation might be: [##_12AB_11C##]
+
+<p><b>N.B.</b> You restart a previously saved game by running the program
+with a single argument, specified by a relative or absolute path of a saved
+game file as a command-line argument.
+</blockquote>
+
+<h3>Examples of command-line arguments</h3>
+<blockquote>
+<tt>stage2 -d /projects/CSE116/words -p Kaylee -p River -p Shepherd</tt>
+<br>
+<tt>stage2 savedGame12</tt>
+</blockquote>
+
+<H3>Randomized board shape [4 points]</H3>
+<blockquote>
+
+<p>When the game begins it must generate two random integers (call
+them x and y) in the range 3 to 7, inclusive.  These two numbers
+determine the "dead zones" in the upper-right and lower-left of the 20
+by 20 board.  The board in stage 1 is the board you get with x and y
+both set to 6.
+
+<p>If x were set to 3 and y to 5, the board must have the following
+shape:
+
+<img src="Stage2BoardExample.png">
+</blockquote>
+
+<H3>Tile inventory [4 points]</H3>
+<blockquote>
+
+<p>The point values of the tiles, as well as quantity of each type of
+tile, have changed for stage 2.  They are given in the table
+below:</p>
+
+<blockquote>
+<table border=0 cellspacing=3 cellpadding=0>
+ <tr bgcolor="#AAAAAA">
+  <th align="center">Letter</th>
+  <th align="center">Number of tiles for each letter</th>
+  <th align="center">Point value of each tile</th>
+ </tr>
+<tr bgcolor="#AA88AA"><td align="center">A</td><td align="center">41	</td><td align="center">3</td></tr>
+<tr bgcolor="#AAAA88"><td align="center">B</td><td align="center">7	</td><td align="center">7</td></tr>
+<tr bgcolor="#AA88AA"><td align="center">C</td><td align="center">14	</td><td align="center">6</td></tr>
+<tr bgcolor="#AAAA88"><td align="center">D</td><td align="center">21	</td><td align="center">5</td></tr>
+<tr bgcolor="#AA88AA"><td align="center">E</td><td align="center">56	</td><td align="center">1</td></tr>
+<tr bgcolor="#AAAA88"><td align="center">F</td><td align="center">11	</td><td align="center">7</td></tr>
+<tr bgcolor="#AA88AA"><td align="center">G</td><td align="center">10	</td><td align="center">7</td></tr>
+<tr bgcolor="#AAAA88"><td align="center">H</td><td align="center">30	</td><td align="center">4</td></tr>
+<tr bgcolor="#AA88AA"><td align="center">I</td><td align="center">35	</td><td align="center">4</td></tr>
+<tr bgcolor="#AAAA88"><td align="center">J</td><td align="center">2	</td><td align="center">8</td></tr>
+<tr bgcolor="#AA88AA"><td align="center">K</td><td align="center">4	</td><td align="center">7</td></tr>
+<tr bgcolor="#AAAA88"><td align="center">L</td><td align="center">20	</td><td align="center">5</td></tr>
+<tr bgcolor="#AA88AA"><td align="center">M</td><td align="center">12	</td><td align="center">6</td></tr>
+<tr bgcolor="#AAAA88"><td align="center">N</td><td align="center">33	</td><td align="center">4</td></tr>
+<tr bgcolor="#AA88AA"><td align="center">O</td><td align="center">37	</td><td align="center">3</td></tr>
+<tr bgcolor="#AAAA88"><td align="center">P</td><td align="center">10	</td><td align="center">7</td></tr>
+<tr bgcolor="#AA88AA"><td align="center">Q</td><td align="center">2	</td><td align="center">8</td></tr>
+<tr bgcolor="#AAAA88"><td align="center">R</td><td align="center">30	</td><td align="center">4</td></tr>
+<tr bgcolor="#AA88AA"><td align="center">S</td><td align="center">31	</td><td align="center">4</td></tr>
+<tr bgcolor="#AAAA88"><td align="center">T</td><td align="center">45	</td><td align="center">2</td></tr>
+<tr bgcolor="#AA88AA"><td align="center">U</td><td align="center">14	</td><td align="center">6</td></tr>
+<tr bgcolor="#AAAA88"><td align="center">V</td><td align="center">5	</td><td align="center">7</td></tr>
+<tr bgcolor="#AA88AA"><td align="center">W</td><td align="center">12	</td><td align="center">6</td></tr>
+<tr bgcolor="#AAAA88"><td align="center">X</td><td align="center">2	</td><td align="center">8</td></tr>
+<tr bgcolor="#AA88AA"><td align="center">Y</td><td align="center">10	</td><td align="center">7</td></tr>
+<tr bgcolor="#AAAA88"><td align="center">Z</td><td align="center">2	</td><td align="center">8</td></tr>
+</table>
+</blockquote>
+
+<p>
+
+If a player plays a word which is not in the dictionary the player
+loses their turn and the tiles which they placed on the board are
+returned to the player.
+
+</blockquote>
+</blockquote>
+
+
+
+<p><hr>
+
+<h2>Testing requirements [20 points]</h2>
+
+<blockquote>
+<h3>JUnit tests of stage 1 functionality requirements [6 points]</h3>
+
+<blockquote>
+<p>Your team must submit a set of JUnit tests for the required
+functionality of stage 1.</p>
+
+</blockquote>
+
+<h3>JUnit tests of stage 2 functionality requirements [14 points]</h3>
+
+<blockquote>
+<p>Your team must submit a set of JUnit tests for the required
+functionality of stage 2.</p>
+
+</blockquote>
+
+</blockquote>
+
+<p><hr>
+
+<h2>Other requirements [34 points]</h2>
+
+<blockquote>
+
+<h3>Package naming [4 points]</h3>
+
+<blockquote>
+
+<p>
+You must maintain the package structure of the stage1 codebase you
+chose, unless it does not follow the required stage 1 package naming
+guidelines (in which case you must refactor the code so that it is
+correctly named packages).
+</p>
+
+</blockquote>
+
+<h3>Code documentation [10 points]</h3>
+<blockquote>You must provide Javadoc documentation comments for each
+class/interface, each method and each instance variable.   See the <a
+href="http://java.sun.com/javase/6/docs/technotes/guides/javadoc/index.html">Javadoc
+Technology page</a> for more information. See in particular the page
+<a
+href="http://java.sun.com/j2se/javadoc/writingdoccomments/index.html">How
+to Write Doc Comments for Javadoc</a>.</p>
+
+<p>You must provide at the very least general descriptions of
+<b>what</b> each class and each method is supposed to do, in addition
+to providing the <tt>@author</tt> tag for classes/interfaces
+(<b>listing <i>everyone</i> who worked on the class/interface</b>),
+and <tt>@param</tt> and <tt>@return</tt> tags for methods.  For each
+instance variable, you need to describe <b>what</b> its role is.
+<i>These <b>what</b> comments are mean to be read by developers who
+need to use your code (including the members of your team!)</i></p>
+
+<p>
+You must provide non-javadoc comments to describe <b>how</b> complex
+methods work.  It may be that most of your methods require little or
+no <b>how</b> documentation - that's to be expected.  However, any
+method whose functioning is not immediately obvious to someone other
+that its author needs to be documented in this way.  <i>These
+<b>how</b> comments are mean to be read by developers who need to
+maintain &amp; modify your code (including the members of your
+team!)</i></p>
+
+</blockquote>
+
+<h3>Technical guide [8 points]</h3>
+
+<blockquote><p>You must submit a technical guide which
+describes the design of your project, testing that you have done, any required
+functionality which your project does not implement or does not implement
+properly, etc.&nbsp; </p>
+
+<p>
+Your technical guide must provide UML diagrams of your final design,
+made using Green.  Do not simply open your whole project using Green
+to make this diagram.  Instead, create a small number of diagrams (say
+1 - 3) which highlight the overall design of your submission.  Include
+in each relevant classes of your submission and arrange them in such
+a way that their relationships to each other are clear, highlighting
+any design patterns that you have used.</p>
+
+</blockquote>
+
+<h3>Users' guide [8 points]</h3>
+<blockquote>
+You must provide a short user's manual which describes how to use your
+program to play the game.  This must be in a plain text file only.  Do
+not submit Word files or files in any other format - they will not be
+graded.
+
+</blockquote>
+
+<h3>Team meeting minutes [4 points]</h3>
+<blockquote>
+Provide a record of your team meetings (the meetings you have in
+recitations), including the agenda for the meeting, attendance, and
+minutes (who said what, what was actually accomplished).  Pick someone
+on your team to chair each meeting (their job is to keep the meeting
+on-time and on-track) and someone to be secretary (whose job it is to
+record what is said - not in exacting detail but in broad
+brushstrokes).  The secretary needs to ensure that a copy of each
+meetings' notes is placed in your team's repository (put them in a
+"Minutes" folder).  In the next meeting the secretary should chair,
+and a new secretary should be found.  Your team contact person is
+responsible for e-mail your team's minutes to me the day of your
+recitation.
+
+<p>
+</blockquote>
+
+</blockquote>
+
+<p><hr>
+
+<h2>Team Submission</h2>
+<blockquote>
+
+<p>Submit stage 2 using Web-CAT.  Be sure the project you submit
+contains all of the following:
+
+<ul>
+<li>Source code (i.e. the <code>.java</code>) files, properly
+    javadoc'ed, together with
+    <tt>.project</tt> and <tt>.classpath</tt> files</li>
+<li>JUnit tests.  You are NOT expected to unit test the GUI, but you
+    are expected to unit tests the rest of the functionality of the
+    system.
+<li>Team meeting minutes</li>
+<li>User's guide</li>
+<li>Technical guide</li>
+</ul>
+
+
+<p><b>Due date:</b> on or before 9:00 PM
+on Wednesday, May 7, 2014.</p>
+</blockquote>
+
+<a name="credit"></a>
+<p>
+ 
+<p><hr>
+
+<h2>Individual Submission</h2>
+<blockquote>
+
+<p>Submit, by e-mailing to &lt;alphonce@buffalo.edu&gt;, your peer
+evaluations for stage 2 of the team project.  See detailed
+instructions in the stage 1 description.  Use 
+"CSE116 Peer Eval - cse-tXXX - stage 2" as the subject line.
+
+
+<p><b>Due date:</b> on or before 10:00 PM on Wednesday, May 7,
+2014.</p>
+</blockquote>
+
+<p><hr>

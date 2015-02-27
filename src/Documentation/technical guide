@@ -1,0 +1,19 @@
+Team t006 Technical guide
+Design layout:
+Our stage 2 design layout consists of the functionality of 
+the GUI (graphical user interface) which is necessary for those who wish to see the game they play.
+
+
+	The GUI: 
+the gui that we created is composed of one main JFrame with a flow layout with separate
+JPanels hold JButtons or JLabels. Our title of the game is a JPanel holding textual
+ information which is set to north to display the game you are playing.
+ The board and tile rack are consisted of matrix based grid layout buttons with specific methods called getRandx and getRandy which delete the corners of the board to match the visual representation. The board was set to the center and was made resizable when stretching or shrinking. The tile rack was composed of the grid layout(0x12) and holds JPanels and tiles with a string representation composed of a char which was pulled from our tile pile class. Our gui is also interacting with buttons through the design of creating separate handlers for each button to preform specific tasks when you decide to click one of the buttons. The handlers were action Listeners which were made in each separate class with a constructor calling the appropriate parameters in each constructor for the desired task of the button.
+
+TESTS: The is empty method is the only test that we can not pass. Besides that the underlying test we wrote for each of the methods passed so we had an 89% success rate.
+
+CURRENT PROBLEMS: implementing an abstract class which implements clone-able for the JFrame so we can update the players board when ending a turn.
+
+GREEN DIAGRAM:
+
+Green diagrams can be found within the documentation folder
